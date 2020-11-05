@@ -17,7 +17,7 @@ for plan in plans:
             ny = y + dy[i]
     
     if nx < 1 or ny < 1 or nx > n or ny > n:
-        continue
+        continue # 이하 문장은 실행하지 않고 다음 for 실행
 
     x, y = nx, ny
 
