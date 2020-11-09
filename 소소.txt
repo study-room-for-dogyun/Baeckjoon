@@ -1,0 +1,12 @@
+* 큐 : from collections import deque
+    - queue = deque()
+
+* Dynamic Programming
+    - Memorization : 재귀
+    - Tabulatino : 반복문
+
+* 대용량 데이터 입력받기
+    - import sys
+    - input = lambda: sys.stdin.readline().rstrip()
+
+    - 범위가 10억 이상이면 이진탐색으로 문제 접근
