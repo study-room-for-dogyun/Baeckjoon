@@ -1,6 +1,9 @@
 * 큐 : from collections import deque
     - queue = deque()
 
+* 순열과 조합
+    - from itertools import poermutations, combinations
+
 * Dynamic Programming
     - Memorization : 재귀
     - Tabulatino : 반복문
