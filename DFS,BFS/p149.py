@@ -4,7 +4,6 @@ graph = []
 for i in range(n):
     graph.append(list(map(int, input())))
 
-count = 0
 def dfs(x, y):                                  # 탐색 시작지점 좌표
 
     if x <= -1 or x >= n or y <= -1 or y >= m:  # 더이상 나아갈 수 없으면 False
