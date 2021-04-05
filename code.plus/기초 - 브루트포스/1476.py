@@ -1,3 +1,5 @@
+# https://www.acmicpc.net/problem/1476
+
 n = list(map(int, input().split()))
 
 esm = [15, 28, 19]
