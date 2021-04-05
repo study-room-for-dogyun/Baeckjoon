@@ -1,10 +1,6 @@
 # https://www.acmicpc.net/problem/13023
 
 n, m = map(int, input().split())
-<<<<<<< HEAD
-graph = [list(map(int, input().split())) for _ in range(m)]
-
-=======
 graph = [[] for _ in range(n)]
 
 for _ in range(m):
@@ -36,4 +32,3 @@ for i in range(len(graph)):
     visited[i] = False
 
 print(1 if anw else 0)
->>>>>>> d337d43d7e93782a7bbc74817729575c743e49fe
