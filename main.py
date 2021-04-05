@@ -1,10 +1,6 @@
-n = int(input())
+a = [1, 2, 3]
 
-def fibo(x):
-    prev, cur = 0, 1
-    for _ in range(2, x + 1):
-        prev, cur = cur, prev + cur
-    
-    return cur
+a.append(4)
+a.pop()
 
-print(fibo(n))
+print(a)
