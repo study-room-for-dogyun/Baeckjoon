@@ -34,7 +34,7 @@ def bfs(graph):
 
         
 
-        if not queue and broke == True:
+        if not queue and broke:
             for i in range(4):
                 nx = x + dx[i]
                 ny = y + dy[i]

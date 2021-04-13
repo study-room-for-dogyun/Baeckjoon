@@ -1,3 +1,5 @@
+# https://www.acmicpc.net/problem/2577
+
 n = [int(input()) for _ in range(3)]
 
 mul = str(n[0] * n[1] * n[2])

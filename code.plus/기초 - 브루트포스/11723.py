@@ -1,51 +1,34 @@
-
-s = []
-
-def add(x):
-    global s
-    if x not in s:
-        s.append(x)
-
-def remove(x):
-    global s
-    if x in s:
-        temp = s.index(x)
-        del s[temp]
-
-def check(x):
-    global s
-    if x in s:
-        print(1)
-    else:
-        print(0)
-
-def toggle(x):
-    global s
-    if x in s:
-        remove(x)
-    else:
-        add(x)
-
-def all_():
-    global s
-    s = [i for i in range(1, 21)]
-
-def empty():
-    global s
-    s = []
-
+# https://www.acmicpc.net/problem/11723
 
 m = int(input())
-op = []
+oper = [list(map(str, input().split())) for _ in range(m)]
 
-for i in range(m):
-    a = input()
-    a = a.split(' ')
+s = 0
+while oper:
+    if len(oper[0]) == 2:
+        a, x = oper[0][0], int(oper[0][1])
+    else:
+        a = oper[0][0]
+    del oper[0]
+
     
-
+    if a == 'add':
+        if s & (1 << x-1) == 0:
+            s |= (1 << x-1)
+    
+    elif a == 'remove':
+        if s & (1 << x-1) == 1:
+            s |= 
+            
+    elif a == 'check':
+        if check[x]:
+            print(1)
+        else:
+            print(0)
+    
+    elif a == 'toggle':
         
-
-
-print(op)
-
-    
+    elif a == 'all':
+        s = 0xfffff
+    else:
+        s = 0
