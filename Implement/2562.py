@@ -1,5 +1,6 @@
-n = [int(input()) for _ in range(9)]
+# https://www.acmicpc.net/problem/2562
 
+n = [int(input()) for _ in range(9)]
 
 ma = 0
 

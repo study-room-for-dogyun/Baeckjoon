@@ -1,3 +1,5 @@
+# https://www.acmicpc.net/problem/3052
+
 n = [int(input()) for _ in range(10)]
 x = [n[i]%42 for i in range(10)]
 
