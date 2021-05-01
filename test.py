@@ -1,6 +1,3 @@
-a = [1, 2, 3]
-
-a.append(4)
-a.pop()
+a = 3//3
 
 print(a)
