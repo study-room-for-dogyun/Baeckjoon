@@ -1,6 +1,9 @@
 # https://www.acmicpc.net/problem/2206
 
 from collections import deque
+import sys
+
+input = lambda: sys.stdin.readline().rstrip()
 
 n, m = map(int, input().split())
 graph = [list(map(int, input())) for _ in range(n)]
