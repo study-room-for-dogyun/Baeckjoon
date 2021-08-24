@@ -10,6 +10,7 @@ for _ in range(m):
     graph[a].append(b)
     graph[b].append(a)
 
+
 def bfs(start, goal, visited):
     q = deque([start])
     visited[start] = 1

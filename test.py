@@ -1,3 +1,6 @@
-a = 3//3
+a = 1
 
-print(a)
+if type(a) == int:
+    print(1)
+else:
+    print(0)
