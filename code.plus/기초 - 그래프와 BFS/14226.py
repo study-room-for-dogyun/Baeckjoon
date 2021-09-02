@@ -1,27 +1,51 @@
 # https://www.acmicpc.net/problem/14226
 from collections import deque
 
-s = int(input())
+# s = int(input())
+c = [list(map(int, input().split())) for _ in range(999)]
 
-def bfs():
-    check = [0] * 1001
+def bfs(s):
+    # [이모티콘 개수, 현재 횟수, 복사 여부, 클립보드의 개수]
+    q = deque([[1, 0, False, 0]])
+    visited = {}
 
-    queue = deque()
-    queue.append(1)
+    while q:
 
-    while queue:
-        cur = queue.popleft()
+        num, cnt, copy, clip = q.popleft()
 
-        if cur == s:
-            return check[cur]
+        # print(num, cnt, copy, clip)
+        # print(visited)
 
-        if 1 < 2 * cur <= 1001:     # 붙여넣기
-            check[2*cur] = check[cur] + 1
-            queue.append(2*cur)
+        if num == s:
+            return cnt
+        
+        if num > 1000:
+            continue
 
-        if 1 < cur - 1 <= 1001:     # 1개 지우기
-            check[cur-1] = check[cur] + 1
-            queue.append(cur-1)
+        if num in visited:
+            if visited[num] == 1:
+                continue
 
+        cnt += 1
+        q.append([num, cnt, True, num])                 # 1. 복사하기  
 
-print(bfs())
+        if copy:    # 클립보드에 복사한 게 없으면
+            q.append([num+clip, cnt, copy, clip])       # 2. 붙여넣기   
+
+        if num > 0:     # 이모티콘 삭제할 게 있을 때
+            q.append([num-1, cnt, copy, clip])          # 3. 삭제하기
+
+        if num in visited:
+            visited[num] += 1
+        else:
+            visited[num] = 1
+
+for i in c:
+    result = bfs(i[0])
+    if result == i[1]:
+        print(True, i, result)
+    else:
+        print(False, i, result)
+
+# print(bfs())
+# print(visited)

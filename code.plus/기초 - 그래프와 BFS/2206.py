@@ -1,6 +1,8 @@
 # https://www.acmicpc.net/problem/2206
 
 from collections import deque
+import sys
+input = lambda: sys.stdin.readline().rstrip()
 
 x, y = map(int, input().split())
 graph = [list(map(str, input())) for _ in range(x)]
@@ -16,7 +18,6 @@ def bfs(sx, sy):
 
     while q:
         cx, cy, cb = q.popleft()
-        nb = cb
 
         for i in range(4):
             nx = cx + dx[i]
@@ -28,17 +29,28 @@ def bfs(sx, sy):
             if type(graph[nx][ny]) == int:
                 continue
 
-            if graph[nx][ny] == '1':
+            if graph[nx][ny] == '0':
                 if cb == 0:
                     graph[nx][ny] = int(graph[cx][cy]) + 1
-                    nb = 1
-                else:
-                    nb = 1
-            else:
-                nb = cb
-                graph[nx][ny] = int(graph[cx][cy]) + 1
+                    q.append([nx, ny, 1])
 
-            q.append([nx, ny, nb])
+            else:
+                graph[nx][ny] = int(graph[cx][cy]) + 1
+                q.append([nx, ny, cb])
+        
+        for i in graph:
+            for j in i:
+                if j == '1':
+                    print('*', end=" ")
+                elif j == '0':
+                    print(0, end=" ")
+                else:
+                    print(j, end=" ")
+            print()
+        
+        print('\n\n\n')
+
+            
 
     if graph[x-1][y-1] == '0':
         return -1
@@ -47,6 +59,12 @@ def bfs(sx, sy):
 
 print(bfs(0, 0))
 
-for i in graph:
-    print(i)
-print()
+# for i in graph:
+#     for j in i:
+#         if j == '1':
+#             print('*', end=" ")
+#         elif j == '0':
+#             print(0, end=" ")
+#         else:
+#             print(j, end=" ")
+#     print()
