@@ -3,22 +3,23 @@
 n = int(input())
 graph = [list(map(int, input().split())) for _ in range(n)]
 
-result = 10 ** 9
+mini = 10987654321
 
-def dfs(x, visited):
-    global total
+def dfs(visited, init, cur, depth, value):
+    global mini
 
-    visited[x] = True
+    if depth == n and graph[cur][init]:
+        mini = min(mini, value+graph[cur][init])
+        return
 
-    for i in range(n):
-        if graph[x][i] != 0 and not visited[i]:
-            total += graph[x][i]
-            dfs(i, visited)
+    for next in range(n):
+        if not visited[next] and graph[cur][next] and next != init:
+            visited[next] = True
+            dfs(visited, init, next, depth+1, value+graph[cur][next])
+            visited[next] = False
 
+for start in range(n):
+    visited = [False] * n
+    dfs(visited, start, start, 1, 0)
 
-for i in range(n):
-    total = 0
-    check = [False] * n
-    dfs(i, check)
-
-    print(total)
+print(mini)

@@ -4,33 +4,9 @@
 n = int(input())
 num = list(map(int, input().split()))
 oper = list(map(int, input().split()))
-# oper = '+'*l[0] + '-'*l[1] + '*'*l[2] + '/'*l[3]
 
 maxi = -9999999999
 mini = 9999999999
-
-# for o in permutations(oper):
-
-#     temp = num[0]
-#     for idx in range(len(o)):
-#         if o[idx] == '+':
-#             temp += num[idx+1]
-#         elif o[idx] == '-':
-#             temp -= num[idx+1]
-#         elif o[idx] == '*':
-#             temp *= num[idx+1]
-#         else:
-#             if temp < 0:
-#                 temp = abs(temp) // num[idx+1]
-#                 temp *= -1
-#             else:
-#                 temp //= num[idx+1]
-
-#     maxi = max(maxi, temp)
-#     mini = min(mini, temp)
-
-# print(maxi)
-# print(mini)
 
 def dfs(value, depth, idx, plus, minus, multi, divide):
 
