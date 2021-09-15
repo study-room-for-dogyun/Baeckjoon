@@ -1,5 +1,5 @@
 
-s = [1, 2, 3, 4]
-
-s.append(5)
-print(s.pop())
+if 0:
+    print(True)
+else:
+    print(False)

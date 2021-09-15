@@ -1,32 +1,33 @@
 # https://www.acmicpc.net/problem/2504
 
-l = list(map(str, input()))
+data = list(map(str, input()))
 
-s = []
+stack = []
 answer = 0
-record = 0
-for i in l:
+for i in data:
+
+    if i == '(' or i == '[':
+        stack.append(i)
+        continue
+
+
+    if i == ']':
+        if stack[-1] == '[':
+            stack.pop()
+            stack.append(3)
+        
+        elif stack[-1] == int:
+            pass
+
+    elif i == ')':
+        if stack[-1] == '(':
+            stack.pop()
+            stack.append(2)
+
     
+print(stack)    
 
-    if i == ')':
-        if s[-1] == '(':
-            temp = s.pop()
-            if s:
-                answer += 2 * record
-                record = 0
-            else:
-                record += 2
-    
-    elif i == ']':
-        if s[-1] == '[':
-            temp = s.pop()
-            if s:
-                answer += 2 * record
-                record = 0
-            else:
-                record += 2
-
-    else:
-        s.append(i)
-
-print(answer)
+if stack:
+    print(0)
+else:
+    print(answer)
