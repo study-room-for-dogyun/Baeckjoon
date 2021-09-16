@@ -2,52 +2,69 @@
 
 from collections import deque
 import sys
-
 input = lambda: sys.stdin.readline().rstrip()
 
-n, m = map(int, input().split())
-graph = [list(map(int, input())) for _ in range(n)]
+x, y = map(int, input().split())
+graph = [list(map(str, input())) for _ in range(x)]
+# visited = [[False] * y for _ in range(x)]
+# cnt = [[0] * y for _ in range(x)]
 
-for i in range(n):
-    for j in range(m):
-        if graph[i][j] == 1:
-            graph[i][j] = 'X'
-
-def bfs(graph):
-
+def bfs(sx, sy):
+    graph[sx][sy] = 0
     dx = [0, 0, -1, 1]
     dy = [-1, 1, 0, 0]
 
-    queue = deque()
-    queue.append([0, 0])
-    graph[0][0] = 1
+    q = deque([[sx, sy, 0]])
 
-    broke = True        # 부수는 기회 단 1번
-    while queue:
-        x, y = queue.popleft()
-        if [x, y] == [n-1, m-1]:
-            return graph[x][y]
-        
+    while q:
+        cx, cy, cb = q.popleft()
+
         for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
-            if 0 <= nx < n and 0 <= ny < m and graph[nx][ny] != 'X' and graph[nx][ny] == 0:
-                graph[nx][ny] = graph[x][y] + 1
-                queue.append([nx, ny])
+            nx = cx + dx[i]
+            ny = cy + dy[i]
 
+            if not(0 <= nx < x and 0 <= ny < y):
+                continue
         
+            if type(graph[nx][ny]) == int:
+                continue
 
-        if not queue and broke:
-            for i in range(4):
-                nx = x + dx[i]
-                ny = y + dy[i]
-                if 0 <= nx < n and 0 <= ny < m and graph[nx][ny] == 'X':
-                    graph[nx][ny] = graph[x][y] + 1
-                    queue.append([nx, ny])
+            if graph[nx][ny] == '0':
+                if cb == 0:
+                    graph[nx][ny] = int(graph[cx][cy]) + 1
+                    q.append([nx, ny, 1])
+
+            else:
+                graph[nx][ny] = int(graph[cx][cy]) + 1
+                q.append([nx, ny, cb])
+        
+        for i in graph:
+            for j in i:
+                if j == '1':
+                    print('*', end=" ")
+                elif j == '0':
+                    print(0, end=" ")
+                else:
+                    print(j, end=" ")
+            print()
+        
+        print('\n\n\n')
+
             
-            broke = False
 
-    return False
+    if graph[x-1][y-1] == '0':
+        return -1
+    else:
+        return graph[x-1][y-1] + 1
 
-result = bfs(graph)
-print(result if result else -1)
+print(bfs(0, 0))
+
+# for i in graph:
+#     for j in i:
+#         if j == '1':
+#             print('*', end=" ")
+#         elif j == '0':
+#             print(0, end=" ")
+#         else:
+#             print(j, end=" ")
+#     print()
