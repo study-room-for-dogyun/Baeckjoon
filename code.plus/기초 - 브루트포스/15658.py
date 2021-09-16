@@ -1,4 +1,5 @@
 # https://www.acmicpc.net/problem/15658
+
 n = int(input())
 nums = list(map(int, input().split()))
 oper = list(map(int, input().split()))

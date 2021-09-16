@@ -1,5 +1,4 @@
 # https://www.acmicpc.net/problem/14888
-# from itertools import permutations
 
 n = int(input())
 num = list(map(int, input().split()))
@@ -9,7 +8,6 @@ maxi = -9999999999
 mini = 9999999999
 
 def dfs(value, depth, idx, plus, minus, multi, divide):
-
     global maxi, mini
 
     if depth == n-1:

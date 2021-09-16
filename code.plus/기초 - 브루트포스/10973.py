@@ -1,20 +1,15 @@
 # https://www.acmicpc.net/problem/10973
-from itertools import permutations
 
 n = int(input())
-per = list(map(int, input().split()))
-print(per)
-for i in range(n-1, 0, -1):
-    
-    if per[i] > per[i-1]:
-        x = i-1
-        y = i
+p = list(map(int, input().split()))
 
-        for j in range(n-1, x, -1):
-            if per[j] > per[x]:
-                per[j], per[x] = per[x], per[j]
-                per = per[:y+1] + sorted(per[y+1:])
-                break
+def x(per):
+    for idx in range(n-1, 0, -1):
+        if per[idx-1] > per[idx]:
+            for k in range(n-1, idx-1, -1):
+                if per[idx-1] > per[k]:
+                    per[k], per[idx-1] = per[idx-1], per[k]
+                    return per[:idx] + sorted(per[idx:], reverse=True)
+    return [-1]
 
-print(per)
-
+print(" ".join(list(map(str, x(p)))))
