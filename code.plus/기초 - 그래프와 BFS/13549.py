@@ -2,32 +2,24 @@
 from collections import deque
 
 n, k = map(int, input().split())
+MAX = 100001
+visited = [-1] * MAX
 
-def bfs(x):
-    visit = [None] * 100001
-    q = deque([x])
-    visit[x] = 0
+q = deque([n])
+visited[n] = 0
 
-    while q:
-        cur = q.popleft()
-
-        if cur == k:
-            print(visit[:20])
-            return visit[cur]
-
-        if 0 < 2 * cur < 100001 and visit[2*cur] == None:
-            visit[2*cur] = visit[cur]
-            q.append(2*cur)
+while q:
+    cur = q.popleft()
+    if 2*cur < MAX and visited[2*cur] == -1:
+        q.appendleft(2*cur)
+        visited[2*cur] = visited[cur]
         
-        if 0 <= cur + 1 < 100001 and visit[cur+1] == None:
-            visit[cur+1] = visit[cur]+1
-            q.append(cur+1)
-        
-        if 0 <= cur - 1 < 100001 and visit[cur-1] == None:
-            visit[cur-1] = visit[cur]+1
-            q.append(cur-1)
+    if 0 <= cur - 1 and visited[cur-1] == -1:
+        q.append(cur-1)
+        visited[cur-1] = visited[cur] + 1
 
+    if cur + 1 < MAX and visited[cur+1] == -1:
+        q.append(cur+1)
+        visited[cur+1] = visited[cur] + 1
 
-
-
-print(bfs(n))
+print(visited[k])
