@@ -2,48 +2,36 @@
 
 from collections import deque
 
-y, x = map(int, input().split())
-graph = [list(map(int, input())) for _ in range(x)]
-visited = [[False] * y for _ in range(x)]
-cnt = [[0] * y for _ in range(x)]
+m, n = map(int, input().split())
+graph = [list(map(int, input())) for _ in range(n)]
+dist = [[-1] * m for _ in range(n)]
 
+dx = [0, 0, -1, 1]
+dy = [-1, 1, 0, 0]
 
-def bfs(sx, sy):
+q = deque([[0, 0]])
+dist[0][0] = 0
 
-    dx = [0, 0, -1, 1]
-    dy = [-1, 1, 0, 0]
+while q:
+    
+    x, y = q.popleft()
 
-    q = deque([[sx, sy]])
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
 
-    while q:
-        cx, cy = q.popleft()
-        visited[cx][cy] = True
+        if not(0 <= nx < n and 0 <= ny < m):    # 범위 초과하면 패스
+            continue
 
-        now = cnt[cx][cy]
+        if dist[nx][ny] != -1:                  # 방문했으면 패스
+            continue
 
-        for i in range(4):
-            nx = cx + dx[i]
-            ny = cy + dy[i]
-
-            if not(0 <= nx < x and 0 <= ny < y):
-                continue
-
-            if visited[nx][ny]:
-                continue
-
-            if graph[nx][ny] == 1:
-                cnt[nx][ny] = now + 1
-            else:
-                cnt[nx][ny] = cnt[cx][cy]
-
+        if graph[nx][ny]:   # 벽이면
+            dist[nx][ny] = dist[x][y] + 1       # 부수고 카운터 증가
             q.append([nx, ny])
 
-
-
-print(bfs(0, 0))
-
-for i in graph:
-    print(i)
-print(cnt[x-1][y-1])
-for i in cnt:
-    print(i)
+        else:               # 길이면
+            dist[nx][ny] = dist[x][y]
+            q.appendleft([nx, ny])              # 길 우선적으로 탐색하게 맨 앞에 넣기
+        
+print(dist[n-1][m-1])

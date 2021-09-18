@@ -30,14 +30,13 @@ while q:
             continue
 
         if graph[nx][ny]:       # 벽일 때
-            if not crush and visited[1][nx][ny] == -1:           # 벽을 부수지 않았을 때
+            if not crush:           # 벽을 부수지 않았을 때
                 visited[1][nx][ny] = visited[0][x][y] + 1    # 벽을 부순 세상은 벽을 부수지 않은 세상 + 1이 된다.
                 q.append([1, nx, ny])
 
         else:                   # 길일 때
-            if visited[crush][nx][ny] == -1:     # 방문 안 했으면
-                visited[crush][nx][ny] = visited[crush][x][y] + 1
-                q.append([crush, nx, ny])
+            visited[crush][nx][ny] = visited[crush][x][y] + 1
+            q.append([crush, nx, ny])
 
 
 # OUTPUT
