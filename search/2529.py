@@ -1,45 +1,69 @@
 # https://www.acmicpc.net/problem/2529
 
 k = int(input())
-l = list(map(str, input().split()))
-
+sign = list(map(str, input().split()))
 
 maxi = [0]
 mini = [100]
 
-def dfs(depth, route, visited):
+def dfs_max(depth, route, used):
     global maxi, mini
 
     if depth == k:
-        value = sum(route)
-        if sum(maxi) < value:
-            maxi = route
-        
-        if sum(mini) > value:
-            mini = route
+        if sum(route) > sum(maxi):
+            maxi = route[:]
+        return
 
-        return 
-
-    for i in range(10):
-        if visited[i]:
+    for i in range(9, -1, -1):
+        if used[i]:
             continue
 
-        if l[depth] == '<':
+        if sign[depth] == '<':
             if route[-1] < i:
-                visited[i] = True
-                dfs(depth+1, route+[i], visited)
-                visited[i] = False
+                used[i] = True
+                dfs_max(depth+1, route+[i], used)
+                used[i] = False
+
         else:
             if route[-1] > i:
-                visited[i] = True
-                dfs(depth+1, route+[i], visited)
-                visited[i] = False
+                used[i] = True
+                dfs_max(depth+1, route+[i], used)
+                used[i] = False
 
+def dfs_min(depth, route, used):
+    global maxi, mini
 
-visited = [False] * 10
+    if depth == k:
+        if sum(route) < sum(mini):
+            mini = route[:]
+        return
+
+    for i in range(10):
+        if used[i]:
+            continue
+
+        if sign[depth] == '<':
+            if route[-1] < i:
+                used[i] = True
+                dfs_min(depth+1, route+[i], used)
+                used[i] = False
+
+        else:
+            if route[-1] > i:
+                used[i] = True
+                dfs_min(depth+1, route+[i], used)
+                used[i] = False
+
+used = [False] * 10
+for i in range(9, -1, -1):
+    used[i] = True
+    dfs_max(0, [i], used)
+    used[i] = False
+
 for i in range(10):
-    visited[i] = True
-    dfs(0, [i], visited)
-    visited[i] = False
+    used[i] = True
+    dfs_min(0, [i], used)
+    used[i] = False
 
-print(maxi, mini)
+print("".join(map(str, maxi)))
+print("".join(map(str, mini)))
