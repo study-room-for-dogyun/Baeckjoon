@@ -10,12 +10,14 @@ for _ in range(M):
 dx = [-1, -1, 0, 1, 1, 1, 0, -1]
 dy = [0, 1, 1, 1, 0, -1, -1, -1]
 
+
 def move(x, y, cnt):
     for _ in range(cnt):
         m, s, d = graph[x][y].popleft()
         nx = (x + dx[d]*s) % N
         ny = (y + dy[d]*s) % N
         graph[nx][ny].append([m, s, d])
+
 
 def combine(x, y):
     new_m, new_s, check_eo = 0, 0, 0
@@ -35,6 +37,7 @@ def combine(x, y):
     else:
         for i in range(1, 8, 2):
             graph[x][y].append([new_m//5, new_s//ball_cnt, i])
+
 
 for _ in range(K):
 
