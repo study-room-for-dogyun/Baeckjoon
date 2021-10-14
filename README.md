@@ -3,7 +3,7 @@
 
 - Start : 2020/11/23
 
-- **[Solved](https://solved.ac/profile/kdk124578/solved?sort=average_try&direction=desc&page=1)**
+- **[Solved](https://solved.ac/profile/kdk124578/)**
 
 ## SW역량 테스트 준비
 
