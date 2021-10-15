@@ -1,28 +1,34 @@
 # https://www.acmicpc.net/problem/15686
 
-n, m = map(int, input().split())
-graph = [list(map(int, input().split())) for _ in range(n)]
+from itertools import combinations
+
+N, M = map(int, input().split())
+graph = [list(map(int, input().split())) for _ in range(N)]
+ans = 10987654321
 
 
-# 치킨집 위치 확인
+def distance(x, y, chicken):
+    min_d = 10987654321
+    for i, j in chicken:
+        min_d = min(min_d, abs(x-i)+abs(y-j))
+    return min_d
+
+
+# 치킨, 집 위치
+house = []
 chicken = []
-for x in range(len(graph)):
-    for y in range(len(graph)):
+for x in range(N):
+    for y in range(N):
+        if graph[x][y] == 1:
+            house.append([x, y])
         if graph[x][y] == 2:
             chicken.append([x, y])
 
-# 치킨 거리 구하기
-def bfs():
-    distance = 0
 
+for positions in combinations(chicken, M):
+    temp = 0
+    for x, y in house:
+        temp += distance(x, y, positions)
+    ans = min(temp, ans)
 
-
-    return distance
-
-# 치킨 집 랜덤뽑기
-def dfs(count, depth):
-
-    if depth == m:
-        return count
-
-    
+print(ans)
