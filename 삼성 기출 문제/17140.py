@@ -1,42 +1,57 @@
 # https://www.acmicpc.net/problem/17140
 
 r, c, k = map(int, input().split())
-graph = [list(map(int, input().split())) for _ in range(3)]
-ans = 0
+arr = [list(map(int, input().split())) for _ in range(3)]
 
-def rearrange(l):
 
-    cnt = {}
-    for i in l:
-        if i in cnt:
-            cnt[i] += 1
+def oper():
+    global arr
+
+    longest = 0
+    for idx, row in enumerate(arr):
+        cnt = {}
+        for i in row:
+            if i == 0:
+                continue
+            if i in cnt:
+                cnt[i] += 1
+            else:
+                cnt[i] = 1
+        temp = sorted(cnt.items())
+        temp.sort(key=lambda x: x[1])
+
+        new = []
+        for a, b in temp:
+            new.append(a)
+            new.append(b)
+
+        if len(new) > 100:
+            arr[idx] = new[:100]
+            longest = 100
         else:
-            cnt[i] = 1
+            arr[idx] = new
+            longest = max(longest, len(new))
 
-    cnt = sorted(cnt.items(), key=lambda x: x[1], reverse=True)    
-    
-    result = []
-    for a, b in cnt:
-        result.append(a)
-        result.append(b)
-    
-    print(result)
-rearrange([3, 1, 1])
-
-for i in range(100):
-
-    if graph[r-1][c-1] == k:
-        ans = i
-        break
-
-    len_r = len(graph)
-    len_c = len(graph[0])
-
-    # if len_r >= len_c:
+    for idx, row in enumerate(arr):
+        if len(row) != longest:
+            arr[idx] += [0] * (longest - len(row))
 
 
-    
-    # if len_r < len_c:
+ans = -1
+for i in range(101):
+    len_r = len(arr)
+    len_c = len(arr[0])
 
-    
+    if len_r > r-1 and len_c > c-1:
+        if arr[r-1][c-1] == k:
+            ans = i
+            break
+
+    if len_r >= len_c:
+        oper()
+    else:
+        arr = list(map(list, zip(*arr)))
+        oper()
+        arr = list(map(list, zip(*arr)))
+
 print(ans)
