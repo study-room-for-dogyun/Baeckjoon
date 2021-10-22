@@ -1,75 +1,76 @@
 # https://www.acmicpc.net/problem/17142
 
-from itertools import combinations
 from collections import deque
+from itertools import combinations
 
 N, M = map(int, input().split())
 graph = [list(map(int, input().split())) for _ in range(N)]
+virus = []
 virus_map = [[False] * N for _ in range(N)]
-
-viruses = []
-for i in range(N):
-    for j in range(N):
-        if graph[i][j] == 2:
-            viruses.append([i, j])
-            graph[i][j] = 0
-            virus_map[i][j] = True
-
 dx = [-1, 1, 0, 0]
 dy = [0, 0, -1, 1]
 
 
-def bfs(m, virus):
+def init():
+    for i in range(N):
+        for j in range(N):
+            if graph[i][j] == 1:
+                graph[i][j] = '#'
+            if graph[i][j] == 2:
+                virus_map[i][j] = True
+                virus.append([i, j])
+
+
+def bfs(graph, v):
+    global ans
     visited = [[False] * N for _ in range(N)]
-    for i, j in virus:
+    for i, j in v:
         visited[i][j] = True
-    q = deque(virus)
+        graph[i][j] = 0
+    q = deque(v)
 
+    result = 0
     while q:
-        cx, cy = q.popleft()
-        for d in range(4):
-            nx, ny = cx + dx[d], cy + dy[d]
-            if not (0 <= nx < N and 0 <= ny < N) or visited[nx][ny]:
+        x, y = q.popleft()
+        for i in range(4):
+            nx, ny = x + dx[i], y + dy[i]
+            if not (0 <= nx < N and 0 <= ny < N) or graph[nx][ny] == '#':
                 continue
 
-            if graph[nx][ny] != 0:
-                continue
-
-            if virus_map[cx][cy]:
-                if virus_map[nx][ny]:
-                    m[cx][cy] += 1
-                    m[nx][ny] = m[cx][cy] + 1
-                else:
-                    m[nx][ny] = m[cx][cy] + 1
+            if not visited[nx][ny]:
+                graph[nx][ny] = graph[x][y] + 1
+                q.append([nx, ny])
+                visited[nx][ny] = True
             else:
-                if virus_map[nx][ny]:
-                    m[nx][ny] = m[cx][cy] + 1
-                else:
-                    m[nx][ny] = m[cx][cy] + 1
-            q.append([nx, ny])
-            visited[nx][ny] = True
+                if graph[nx][ny] > graph[x][y] + 1:
+                    graph[nx][ny] = graph[x][y] + 1
+                    q.append([nx, ny])
+                    visited[nx][ny] = True
 
-    # 완벽 확산이 안 될 때
+            if not virus_map[nx][ny]:
+                result = max(result, graph[nx][ny])
+
+            if result > ans:
+                return
+
+    if check(graph):
+        ans = min(ans, result)
+
+
+def check(graph):
     zero_cnt = 0
-    for i in m:
+    for i in graph:
         zero_cnt += i.count(0)
-    if zero_cnt > len(virus):
-        return -1
-
-    time = 0
-    for i in m:
-        time = max(time, max(i))
-    print(time)
-    for i in m:
-        print(i)
-    print()
-
-    return time
+        if zero_cnt > M:
+            return False
+    return True
 
 
-shortest_time = 10e9
-for selected_viruses in combinations(viruses, M):
+init()
+
+ans = 10e9
+for i in combinations(virus, M):
     temp = [i[:] for i in graph]
-    shortest_time = min(shortest_time, bfs(temp, selected_viruses))
+    bfs(temp, i)
 
-print(shortest_time)
+print(ans if ans != 10e9 else -1)
