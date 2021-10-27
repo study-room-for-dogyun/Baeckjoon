@@ -14,6 +14,9 @@
 ### 지금 풀고있는 문제집
 
 - [삼성 SW 역량 테스트 기출문제](https://www.acmicpc.net/workbook/view/1152) : [코드](https://github.com/dogyun-k/Baeckjoon/tree/main/%EC%82%BC%EC%84%B1%20%EA%B8%B0%EC%B6%9C%20%EB%AC%B8%EC%A0%9C)
+  
+  삼성 SW역량테스트 후기 : 시간 내에 푸는 연습, 골드 1~2 수준임. 3~5 가지고 안 될 듯
+
 - [code.plus](https://www.acmicpc.net/workbook/codeplus) : [코드](https://github.com/dogyun-k/Baeckjoon/tree/main/code.plus)
 
 
