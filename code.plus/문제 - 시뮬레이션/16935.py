@@ -36,55 +36,59 @@ def five():
     # 2: 0 ~ N/2, M/2 ~ M
     # 3: N/2 ~ N, M/2 ~ M
     # 4: N/2 ~ N, 0 ~ M/2
+    n = len(arr)
+    m = len(arr[0])
     temp = []
-    for i in range(0, len(arr) // 2):
-        temp.append(arr[i][0:len(arr[0]) // 2])
+    for i in range(0, n // 2):
+        temp.append(arr[i][0:m // 2])
 
     # 4 -> 1
-    for i in range(len(arr) // 2, len(arr)):
-        for j in range(len(arr[0]) // 2):
-            arr[i - len(arr) // 2][j] = arr[i][j]
+    for i in range(n // 2, n):
+        for j in range(m // 2):
+            arr[i - n // 2][j] = arr[i][j]
 
     # 3 -> 4
-    for i in range(len(arr) // 2, len(arr)):
-        for j in range(len(arr[0]) // 2, len(arr[0])):
-            arr[i][j - len(arr[0]) // 2] = arr[i][j]
+    for i in range(n // 2, n):
+        for j in range(m // 2, m):
+            arr[i][j - m // 2] = arr[i][j]
 
     # 2 -> 3
-    for i in range(len(arr) // 2):
-        for j in range(len(arr[0]) // 2, len(arr[0])):
-            arr[i + len(arr) // 2][j] = arr[i][j]
+    for i in range(n // 2):
+        for j in range(m // 2, m):
+            arr[i + n // 2][j] = arr[i][j]
 
     # 1 -> 2
     for i in range(len(temp)):
         for j in range(len(temp[0])):
-            arr[i][j + len(arr[0]) // 2] = temp[i][j]
+            arr[i][j + m // 2] = temp[i][j]
 
 
 def six():
     temp = []
-    for i in range(0, len(arr) // 2):
-        temp.append(arr[i][0:len(arr[0]) // 2])
+    n = len(arr)
+    m = len(arr[0])
+    for i in range(0, n // 2):
+        temp.append(arr[i][0:m // 2])
 
     # 2 -> 1
-    for i in range(0, len(arr) // 2):
-        for j in range(len(arr[0]) // 2, len(arr[0])):
-            arr[i][j - len(arr[0]) // 2] = arr[i][j]
+    for i in range(0, n // 2):
+        for j in range(m // 2, m):
+            arr[i][j - m // 2] = arr[i][j]
 
     # 3 -> 2
-    for i in range(len(arr) // 2, len(arr)):
-        for j in range(len(arr[0]) // 2, len(arr[0])):
-            arr[i - len(arr) // 2][j] = arr[i][j]
+    for i in range(n // 2, n):
+        for j in range(m // 2, m):
+            arr[i - n // 2][j] = arr[i][j]
 
     # 4 -> 3
-    for i in range(len(arr) // 2, len(arr)):
-        for j in range(0, len(arr[0]) // 2):
+    for i in range(n // 2, n):
+        for j in range(0, m // 2):
             arr[i][j + len(arr[0]) // 2] = arr[i][j]
 
     # 1 -> 4
     for i in range(len(temp)):
         for j in range(len(temp[0])):
-            arr[i + len(arr) // 2][j] = temp[i][j]
+            arr[i + n // 2][j] = temp[i][j]
 
 
 for r in oper:
