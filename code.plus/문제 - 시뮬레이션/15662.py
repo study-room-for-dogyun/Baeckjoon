@@ -26,15 +26,13 @@ for _ in range(K):
     while q:
         cur, cur_d = q.popleft()
 
-        if cur < T - 1:
-            if gear[cur][2] != gear[cur + 1][6] and not visited[cur + 1]:
-                q.append([cur + 1, -cur_d])
-                visited[cur + 1] = True
+        if cur < T - 1 and gear[cur][2] != gear[cur + 1][6] and not visited[cur + 1]:
+            q.append([cur + 1, -cur_d])
+            visited[cur + 1] = True
 
-        if 0 < cur:
-            if gear[cur][6] != gear[cur - 1][2] and not visited[cur - 1]:
-                q.append([cur - 1, -cur_d])
-                visited[cur - 1] = True
+        if 0 < cur and gear[cur][6] != gear[cur - 1][2] and not visited[cur - 1]:
+            q.append([cur - 1, -cur_d])
+            visited[cur - 1] = True
 
         rotate(cur, cur_d)
 

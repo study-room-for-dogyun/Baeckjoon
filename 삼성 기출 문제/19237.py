@@ -61,7 +61,7 @@ def move_shark():
         nx, ny = x, y
         flag = 0
         # 보는 방향과 우선순위 기반 다음 방향 정하기
-        # 1. 가스가 없는 칸 탐색 (여기서 다른 상어의 위치일 때는 포함시킴. 동시에 움직이기 때문)
+        # 1. 가스가 없는 칸 BFS-DFS (여기서 다른 상어의 위치일 때는 포함시킴. 동시에 움직이기 때문)
         for priority in range(4):
             next_direction = shark_info[num][cur_direction][priority]
             nx, ny = x + dx[next_direction], y + dy[next_direction]

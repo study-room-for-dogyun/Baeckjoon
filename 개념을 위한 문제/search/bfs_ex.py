@@ -2,7 +2,7 @@ from collections import deque
 
 # 큐 사용!!!!
 
-def bfs(graph, start, visited):     # 필요 : 전체 그래프, 탐색 시작 노드번호, 방문표시 리스트
+def bfs(graph, start, visited):     # 필요 : 전체 그래프, BFS-DFS 시작 노드번호, 방문표시 리스트
     
     queue = deque([start])          # 큐를 생성하고 시작노드를 넣는다.
     visited[start] = True           # 시작노드는 탐색을 했으므로 방문표시 한다.
